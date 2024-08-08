@@ -25,7 +25,7 @@ form.addEventListener('submit', async event => {
         // Set the src of the iframe to the proxied URL
         iframe.src = proxiedUrl;
 
-        // Make the iframe visible and bring it to the front
+        // Immediately make the iframe visible and bring it to the front
         iframe.classList.add('active');
     } catch (error) {
         console.error('Error during form submission or service worker registration:', error);
