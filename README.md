@@ -1,5 +1,5 @@
 <div style="text-align: center;">
-    <img src="https://raw.githubusercontent.com/titaniumnetwork-dev/Ultraviolet-Static/main/public/uv.png" alt="Centered Image">
+    <img src="https://raw.githubusercontent.com/titaniumnetwork-dev/Ultraviolet-Static-Archive/main/uv.png" alt="Centered Image">
 </div>
 
 # Static Ultraviolet
