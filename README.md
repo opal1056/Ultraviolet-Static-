@@ -1,6 +1,6 @@
-<div style="text-align: center;">
-    <img src="https://raw.githubusercontent.com/titaniumnetwork-dev/Ultraviolet-Static-Archive/main/uv.png" alt="Centered Image">
-</div>
+<p align="center"><img src="https://raw.githubusercontent.com/titaniumnetwork-dev/Ultraviolet-Static/main/public/uv.png" height="200"></p>
+
+<h1 align="center">Ultraviolet-Static</h1>
 
 # Static Ultraviolet
 Modification of backend to make it deployable to static hosting providers.
