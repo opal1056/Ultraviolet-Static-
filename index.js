@@ -1,5 +1,6 @@
 const form = document.querySelector('form');
 const input = document.querySelector('input');
+const iframe = document.getElementById('dashboard-frame');
 
 form.addEventListener('submit', async event => {
     event.preventDefault();
@@ -21,19 +22,8 @@ form.addEventListener('submit', async event => {
         // Construct the proxied URL
         const proxiedUrl = __uv$config.prefix + __uv$config.encodeUrl(url);
 
-        // Open a new window with about:blank and insert the iframe
-        const win = window.open('about:blank');
-        if (win) {
-            win.document.body.style.margin = '0';
-            win.document.body.style.height = '100vh';
-            const iframe = win.document.createElement('iframe');
-            iframe.style.border = 'none';
-            iframe.style.width = '100%';
-            iframe.style.height = '100%';
-            iframe.style.margin = '0';
-            iframe.src = proxiedUrl;
-            win.document.body.appendChild(iframe);
-        }
+        // Set the src of the iframe to the proxied URL
+        iframe.src = proxiedUrl;
     } catch (error) {
         console.error('Error during form submission or service worker registration:', error);
     }
@@ -42,4 +32,3 @@ form.addEventListener('submit', async event => {
 function isUrl(val = '') {
     return /^http(s?):\/\//.test(val) || (val.includes('.') && val[0] !== ' ');
 }
-
