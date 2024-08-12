@@ -10,14 +10,18 @@
     <iframe id="dashboard-frame" src="" style="width: 100%; height: 100vh; border: none;"></iframe>
 
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
+        window.addEventListener('message', (event) => {
+            // Check the origin for security reasons
+            // if (event.origin !== 'YOUR_ORIGIN') return; // Uncomment and set YOUR_ORIGIN
+
             const iframe = document.getElementById('dashboard-frame');
-            const proxiedUrl = sessionStorage.getItem('proxiedUrl');
+            const proxiedUrl = event.data.url;
 
             if (proxiedUrl) {
                 iframe.src = proxiedUrl;
                 iframe.classList.add('active');
-                sessionStorage.removeItem('proxiedUrl'); // Optionally clear the URL after use
+            } else {
+                console.error('No proxied URL received.');
             }
         });
     </script>
