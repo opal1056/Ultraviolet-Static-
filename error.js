@@ -1,20 +1,33 @@
-"use strict";
-const error = document.getElementById("uv-error");
-const errorCode = document.getElementById("uv-error-code");
-const registerButton = document.getElementById("uv-register-sw");
+const form = document.querySelector('form');
+const input = document.querySelector('input');
 
-if (location.pathname.startsWith(__uv$config.prefix)) {
-  error.textContent = "Error: The service worker is not registered.";
-  registerButton.classList.add("show");
-}
+form.addEventListener('submit', async event => {
+    event.preventDefault();
 
-registerButton.addEventListener("click", async () => {
-  try {
-    await registerSW();
-    location.reload();
-  } catch (err) {
-    error.textContent = "Failed to register service worker.";
-    errorCode.textContent = err.toString();
-    registerButton.classList.remove("show");
-  }
+    try {
+        await window.navigator.serviceWorker.register('uv/sw.js', {
+            scope: __uv$config.prefix
+        });
+
+        let url = input.value.trim();
+        if (!isUrl(url)) {
+            url = 'https://www.google.com/search?q=' + encodeURIComponent(url);
+        } else if (!(url.startsWith('https://') || url.startsWith('http://'))) {
+            url = 'http://' + url;
+        }
+
+        const proxiedUrl = __uv$config.prefix + __uv$config.encodeUrl(url);
+
+        // Open go.html in a new window and send the URL
+        const goWindow = window.open('go.html', 'goWindow');
+        goWindow.onload = () => {
+            goWindow.postMessage({ url: proxiedUrl }, '*');
+        };
+    } catch (error) {
+        console.error('Error during form submission or service worker registration:', error);
+    }
 });
+
+function isUrl(val = '') {
+    return /^http(s?):\/\//.test(val) || (val.includes('.') && val[0] !== ' ');
+}
