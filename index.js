@@ -18,8 +18,11 @@ form.addEventListener('submit', async event => {
 
         const proxiedUrl = __uv$config.prefix + __uv$config.encodeUrl(url);
 
-        sessionStorage.setItem('proxiedUrl', proxiedUrl);
-        window.location.href = 'go.html';
+        // Open go.html in a new window and send the URL
+        const goWindow = window.open('go.html', 'goWindow');
+        goWindow.onload = () => {
+            goWindow.postMessage({ url: proxiedUrl }, '*');
+        };
     } catch (error) {
         console.error('Error during form submission or service worker registration:', error);
     }
