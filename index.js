@@ -21,43 +21,12 @@ form.addEventListener('submit', async event => {
         // Construct the proxied URL
         const proxiedUrl = __uv$config.prefix + __uv$config.encodeUrl(url);
 
-        // Open a new window with about:blank and set its content
-        const newWindow = window.open('about:blank', 'proxiedWindow', 'width=100%,height=100%,scrollbars=no,resizable=no');
+        // Open a new window with the proxied URL directly
+        const newWindow = window.open(proxiedUrl, 'proxiedWindow', 'width=100%,height=100%,scrollbars=no,resizable=no');
 
-        // Check if the window opened successfully
-        if (newWindow) {
-            newWindow.document.write(`
-                <!DOCTYPE html>
-                <html>
-                <head>
-                    <title>Proxy</title>
-                    <style>
-                        body, html {
-                            margin: 0;
-                            padding: 0;
-                            width: 100%;
-                            height: 100%;
-                            overflow: hidden;
-                        }
-                        iframe {
-                            width: 100%;
-                            height: 100%;
-                            border: none;
-                        }
-                    </style>
-                </head>
-                <body>
-                    <iframe src="${proxiedUrl}"></iframe>
-                </body>
-                </html>
-            `);
-            newWindow.document.close(); // Important to call document.close()
+        // Redirect the current page to Google
+        window.location.href = 'https://www.google.com';
 
-            // Redirect the current page to Google
-            window.location.href = 'https://www.google.com';
-        } else {
-            console.error('Failed to open the new window.');
-        }
     } catch (error) {
         console.error('Error during form submission or service worker registration:', error);
     }
