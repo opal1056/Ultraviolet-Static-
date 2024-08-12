@@ -17,7 +17,9 @@ form.addEventListener('submit', async event => {
         }
 
         const proxiedUrl = __uv$config.prefix + __uv$config.encodeUrl(url);
-        window.location.href = `go.html?url=${encodeURIComponent(proxiedUrl)}`;
+
+        sessionStorage.setItem('proxiedUrl', proxiedUrl);
+        window.location.href = 'go.html';
     } catch (error) {
         console.error('Error during form submission or service worker registration:', error);
     }
