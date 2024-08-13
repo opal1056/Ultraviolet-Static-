@@ -17,27 +17,24 @@ document.addEventListener('DOMContentLoaded', () => {
             // Construct the proxied URL
             const proxiedUrl = __uv$config.prefix + __uv$config.encodeUrl(url);
 
-            // Open a new about:blank window
-            let win = window.open('about:blank', 'proxiedWindow', 'width=100%,height=100%,scrollbars=no,resizable=no');
+            // Open a new about:blank tab
+            let newTab = window.open('about:blank', '_blank');
 
-            // Set up the content of the new window
-            win.onload = () => {
-                // Set the body style for fullscreen
-                win.document.body.style.margin = '0';
-                win.document.body.style.height = '100vh';
+            // Set up the content of the new tab
+            newTab.document.write(`
+                <html>
+                    <head>
+                        <title>about:blank</title>
+                    </head>
+                    <body style="margin:0; height:100vh;">
+                        <iframe src="${proxiedUrl}" style="border:none; width:100%; height:100%;"></iframe>
+                    </body>
+                </html>
+            `);
+            newTab.document.close();
 
-                // Create and style the iframe
-                const iframe = win.document.createElement('iframe');
-                iframe.style.border = 'none';
-                iframe.style.width = '100%';
-                iframe.style.height = '100%';
-                iframe.style.margin = '0';
-                iframe.src = proxiedUrl;
-                win.document.body.appendChild(iframe);
-
-                // Redirect the current page to Google
-                window.location.href = 'https://www.google.com';
-            };
+            // Redirect the current tab to Google
+            window.location.href = 'https://www.google.com';
 
         } catch (error) {
             console.error('Error during form submission:', error);
