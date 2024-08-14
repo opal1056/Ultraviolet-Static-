@@ -34,7 +34,7 @@ document.addEventListener('DOMContentLoaded', () => {
             newTab.document.close();
 
             // Redirect the current tab to Google
-            window.location.href = 'https://www.google.com';
+            window.location.href = 'https://ultraviolet-static.netlify.app/';
 
         } catch (error) {
             console.error('Error during form submission:', error);
